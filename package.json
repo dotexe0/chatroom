@@ -2,7 +2,7 @@
   "name": "chatroom",
   "version": "1.0.0",
   "description": "mini-slack chatroom",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/dotexe0/chatroom/issues"
   },
-  "homepage": "https://github.com/dotexe0/chatroom#readme"
+  "homepage": "https://github.com/dotexe0/chatroom#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jquery": "^3.1.1",
+    "socket.io": "^1.7.2"
+  }
 }
