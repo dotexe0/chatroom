@@ -1,0 +1,23 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": "mini-slack chatroom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotexe0/chatroom.git"
+  },
+  "keywords": [
+    "chatroom",
+    "nodejs"
+  ],
+  "author": "daniel varela",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dotexe0/chatroom/issues"
+  },
+  "homepage": "https://github.com/dotexe0/chatroom#readme"
+}
