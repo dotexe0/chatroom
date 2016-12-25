@@ -13,6 +13,7 @@ io.on('connection', function(socket) {
   usersConnected += 1;
   console.log('Client connected, ' + usersConnected + ' users here.');
   socket.broadcast.emit('connected');
+  io.emit('user_count', usersConnected);
 
   socket.on('disconnect', function(socket) {
     usersConnected -= 1;
@@ -22,11 +23,9 @@ io.on('connection', function(socket) {
 
   socket.on('message', function(message) {
     console.log('Received message: ', message);
-    socket.broadcast.emit('message', message); // sends msg to all clients connected.
+    socket.broadcast.emit('message', message);
   });
 });
-
-
 
 server.listen(process.env.PORT || 8080);
 console.log("Running on localhost:8080...");

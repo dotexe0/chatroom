@@ -1,13 +1,18 @@
 <!DOCTYPE HTML>
-<title>Chatroom</title>
-<meta charset="utf-8">
 
-<!-- JS -->
-<script src='//code.jquery.com/jquery-2.1.0.js'></script>
-<script src='/socket.io/socket.io.js'></script>
-<script src="main.js"></script>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Chatroom</title>
+  <!-- JS -->
+  <script src='//code.jquery.com/jquery-2.1.0.js'></script>
+  <script src='/socket.io/socket.io.js'></script>
+  <script src="main.js"></script>
+</head>
 
 
-<input type="text">
+<input type="text" id="username" name="username" placeholder="Username">
+<input type="text" id="hidden">
+<div id="activeConnections"></div>
 <div id="messages"></div>
-<div id="connected"><h5>Users Connected</h5></div>
+<div id="connected"><h5><u>Connections</u></h5></div>
