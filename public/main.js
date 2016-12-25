@@ -5,13 +5,6 @@ $(document).ready(function() {
     var messages = $('#messages');
     var connections = $('#connections');
 
-    var getChatBox = function(test) {
-        $('#username').fadeOut('slow', function() {
-            $('#message').fadeIn('slow');
-        });
-
-    };
-
     var addMessage = function(messageWithUsername) {
         messages.append('<div class="messageColor">' + messageWithUsername + '</div>');
     };
@@ -46,7 +39,13 @@ $(document).ready(function() {
                 $('#current-users').append('<p>' + e.name + ' is ready to chat</p>');
             }
         })
-    }
+    };
+
+    var getChatBox = function(test) {
+        $('#username').fadeOut('slow', function() {
+            $('#message').fadeIn('slow');
+        });
+    };
 
     usernameInput.on('keydown', function(event) {
         if (event.keyCode != 13) {
