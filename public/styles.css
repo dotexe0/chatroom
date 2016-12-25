@@ -1,7 +1,19 @@
 * {
   background: #F1F1F1;
+  margin: auto;
+  text-align: center;
 }
 
-input#hidden {
-  visibility: hidden;
+input {
+  border: 1px solid blue;
+  border-radius: 3px;
+  background: white;
+}
+
+.messageColor {
+  color: red;
+}
+
+#messages {
+  border-right: thick double #ff0000;
 }

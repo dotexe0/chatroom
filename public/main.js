@@ -1,53 +1,78 @@
 $(document).ready(function() {
-  var input = $('input');
-  var messages = $('#messages');
-  var connected = $('#connected');
-  var user = $('#user');
-  var numOfUsers = $('numOfUsers');
-  var activeConnections = $('#activeConnections');
-  var socket = io();
+    var socket = io();
+    var messageInput = $('#message');
+    var usernameInput = $('#username');
+    var messages = $('#messages');
+    var connections = $('#connections');
 
-  // var usersConnected = 0;
-  var addMessage = function(message) {
-    messages.append('<div>' + message + '</div>')
-  };
+    var getChatBox = function(test) {
+        $('#username').fadeOut('slow', function() {
+            $('#message').fadeIn('slow');
+        });
 
-  input.on('keydown', function(event) {
-    if(event.keyCode != 13){
-      return;
+    };
+
+    var addMessage = function(messageWithUsername) {
+        messages.append('<div class="messageColor">' + messageWithUsername + '</div>');
+    };
+
+    var addUsername = function(name) {
+        socket.emit('username', name);
+    };
+
+    var displayCount = function(count) {
+        connections.html('<p>There are ' + count + ' users here!</p>');
+    };
+
+    var userTyping = function(user) {
+        $('#activity').html(user + ' is typing...');
+        setTimeout(function() {
+            $('#activity').html('');
+        }, 3000);
+    };
+
+    var newUser = function(name) {
+        messages.html('');
+        messages.append('<div id="notification">User ' + name + ' is now connected</div>');
+        $('#notification').fadeOut(4000);
+    };
+
+    var updateUsers = function(users) {
+        $('#current-users').html('');
+        users.forEach(function(e) {
+            if(users.length === 0) {
+                return;
+            } else {
+                $('#current-users').append('<p>' + e.name + ' is ready to chat</p>');
+            }
+        })
     }
 
-    var message = input.val();
-    addMessage(message);
-    socket.emit('message', message);
-    input.val('');
-  });
+    usernameInput.on('keydown', function(event) {
+        if (event.keyCode != 13) {
+            return;
+        }
+        var username = usernameInput.val();
+        addUsername(username);
+        usernameInput.val('');
+    });
 
-  var broadcastConnection = function() {
-    connected.append('<p id="user">New user connected. </p>');
-    setTimeout(function(){
-      if (user.length > 0) {
-        user.remove();
-        numOfUsers.remove();
-      }
-    }, 3000);
-  };
+    messageInput.on('keydown', function(event) {
+        if (event.keyCode != 13) {
+            socket.emit('typing', socket.username);
+            return;
+        }
 
-  var broadcastDisconnect = function() {
-    connected.append('<p id="user">User disconnected.</p>');
-    setTimeout(function(){
-      if (user.length > 0) {
-        user.remove();
-      }
-    }, 2000);
-  };
-
-  var displayCount = function(count) {
-    activeConnections.html('<p>There are ' + count +' active users.</p>');
-  };
-
-  socket.on('message', addMessage);
-  socket.on('connected', broadcastConnection);
-  socket.on('disconnect', broadcastDisconnect);
-  socket.on('user_count', displayCount);
+        var message = messageInput.val();
+        addMessage(message);
+        socket.emit('message', message);
+        socket.emit('stopped');
+        messageInput.val('');
+    });
+    socket.on('typing', userTyping);
+    socket.on('new-user', newUser);
+    socket.on('current-users', updateUsers);
+    socket.on('users_count', displayCount);
+    socket.on('message', addMessage);
+    socket.on('getchat', getChatBox);
 });
